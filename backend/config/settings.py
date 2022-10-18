@@ -98,7 +98,6 @@ db_config = dj_database_url.config(
 )
 
 DATABASES["default"].update(db_config)
-# DATABASES = {**DATABASES['default'], **db_config}
 
 
 # Password validation
