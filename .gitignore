@@ -3,7 +3,8 @@
 
 .DS_Store
 *.zip
-
+images
+.idea
 ### Django ###
 *.log
 *.pot

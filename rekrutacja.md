@@ -1,3 +1,5 @@
+
+
 # Zadanie rekrutacyjne - CodersLab - kurs Python
 
 ## Wstęp
