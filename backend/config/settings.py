@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     # local
     "users.apps.UsersConfig",
     "home.apps.HomeConfig",
+    "url_trimmer.apps.UrlTrimmerConfig"
 ]
 
 MIDDLEWARE = [
