@@ -26,6 +26,11 @@ def login_user_view(request):
     return render(request, 'users/login.html', {'form': form})
 
 
+def logout_user(request):
+    logout(request)
+    return redirect(reverse_lazy('users:login'))
+
+
 def registration_view(request):
     form = forms.RegistrationForm(request.POST or None)
     if request.method == 'POST':

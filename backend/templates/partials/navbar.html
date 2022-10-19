@@ -9,6 +9,7 @@
         <h5><a href="{% url 'home:home' %}">Home</a></h5>
             {% if user.is_authenticated %}
                 <h5><a class="nav-link" href="">Profile: {{ user }}</a></h5>
+                <h5><a class="nav-link" href="{% url 'users:logout' %}">Logout</a></h5>
             {% else %}
                 <h5><a>You are not logged in</a></h5>
                 <h5><a class="nav-link" href="{% url 'users:login' %}">Login</a></h5>
