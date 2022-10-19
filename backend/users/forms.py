@@ -1,12 +1,13 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 
 
 class RegistrationForm(forms.ModelForm):
     password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
-    password = forms.CharField(widget=forms.PasswordInput)
+    password = forms.CharField(widget=forms.PasswordInput, validators=[validate_password])
     email = forms.CharField(widget=forms.EmailInput(attrs={
         'placeholder': 'Email'
     }))
