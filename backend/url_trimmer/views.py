@@ -2,7 +2,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
 
-from . import forms
+from . import forms, models
 
 
 def add_new_url(request):
@@ -11,6 +11,7 @@ def add_new_url(request):
         if form.is_valid():
             url = form.save(commit=False)
             url.user = request.user
+            url.alias = models.SaveURL.objects.all().count() + 1
             url.save()
             return HttpResponseRedirect(reverse_lazy('home:home'))
 
