@@ -6,18 +6,14 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Django Template -
+    <title> URL Trimmer -
         {% block title %}
-        Welcome
+            Welcome
         {% endblock %}
     </title>
 
     {% block styles %}
-        <link rel="stylesheet" href="{% static 'styles/bootstrap.min.css' %}">
-    {% endblock %}
-
-    {% block scripts %}
-        <script src="{% static 'scripts/bootstrap.min.js' %}"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.min.css">
     {% endblock %}
 
 
@@ -26,16 +22,16 @@
 
 {% include 'partials/navbar.html' %}
 
-<div class="container mt-3">
-    <div class="row">
-        <div class="col-8">
-        {% block container %}
-        {% endblock %}
-    </div>
+<div>
     <div>
-        {% block aside %}
-        {% endblock %}
-    </div>
+        <div>
+            {% block container %}
+            {% endblock %}
+        </div>
+        <div>
+            {% block aside %}
+            {% endblock %}
+        </div>
     </div>
 </div>
 
@@ -43,7 +39,7 @@
     <div class="row">
         <div class="col">
             {% block footer %}
-            
+
             {% endblock %}
         </div>
     </div>
