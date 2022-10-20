@@ -9,7 +9,7 @@
     </div>
     <div>
         <h1>Shorter</h1>
-        <p><a href="{{ link.url }}">{{ link.alias }}</a></p>
+        <p><a href="{% url 'url_trimmer:link_redirect' link.alias %}">{{ request.scheme }}://{{ request.META.HTTP_HOST }}/{{ link.alias }}</a></p>
     </div>
 </div>
 
