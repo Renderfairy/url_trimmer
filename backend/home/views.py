@@ -20,7 +20,7 @@ def home_view(request):
             if form.is_valid():
                 url = form.save(commit=False)
                 url.user = request.user
-                url.alias = request.build_absolute_uri() + str(models.SaveURL.objects.all().count() + 1)
+                url.alias = models.SaveURL.objects.all().count()
                 url.save()
                 return HttpResponseRedirect(reverse_lazy('home:home'))
 
