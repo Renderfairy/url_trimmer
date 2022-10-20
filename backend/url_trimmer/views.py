@@ -6,6 +6,19 @@ from . import models
 
 
 def link_detail_view(request, link_id):
+    """
+        Display an individual :model:`url_trimmer.SaveURL`.
+
+        **Context**
+
+        ``link``
+            An instance of :model:`url_trimmer.SaveURL`.
+
+        **Template:**
+
+        :template: `url_trimmer/link_detail.html`
+
+    """
     link = get_object_or_404(models.SaveURL, pk=link_id)
     context = {'link': link}
 
@@ -13,11 +26,29 @@ def link_detail_view(request, link_id):
 
 
 def link_redirect(request, alias):
+    """
+        Redirect to instances original url :model:`url_trimmer.SaveURL`.
+
+        **Context**
+
+        ``link``
+            An instance of :model:`url_trimmer.SaveURL`.
+
+    """
     link = get_object_or_404(models.SaveURL, alias=alias)
     return redirect(f'{link.url}')
 
 
 def link_delete(request, alias):
+    """
+       Delete instance :model:`url_trimmer.SaveURL`.
+
+       **Context**
+
+       ``link``
+           An instance of :model:`url_trimmer.SaveURL`.
+
+   """
     link = get_object_or_404(models.SaveURL, alias=alias)
     link.delete()
 
