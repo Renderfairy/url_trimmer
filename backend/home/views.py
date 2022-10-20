@@ -7,21 +7,24 @@ from url_trimmer import forms, models
 
 
 def home_view(request):
-    form = forms.AddUrl(request.POST or None)
-    links = models.SaveURL.objects.filter(user=request.user)
-    context = {
-        'form': form,
-        'path': request.path,
-        'links': links,
-    }
+    if request.user.is_authenticated:
+        form = forms.AddUrl(request.POST or None)
+        links = models.SaveURL.objects.filter(user=request.user)
+        context = {
+            'form': form,
+            'path': request.path,
+            'links': links,
+        }
 
-    if request.method == 'POST':
-        if form.is_valid():
-            url = form.save(commit=False)
-            url.user = request.user
-            url.alias = request.build_absolute_uri() + str(models.SaveURL.objects.all().count() + 1)
-            url.save()
-            return HttpResponseRedirect(reverse_lazy('home:home'))
+        if request.method == 'POST':
+            if form.is_valid():
+                url = form.save(commit=False)
+                url.user = request.user
+                url.alias = request.build_absolute_uri() + str(models.SaveURL.objects.all().count() + 1)
+                url.save()
+                return HttpResponseRedirect(reverse_lazy('home:home'))
 
-    return render(request, 'home/home.html', context)
+        return render(request, 'home/home.html', context)
+
+    return render(request, 'home/home.html')
 

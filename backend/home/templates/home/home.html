@@ -1,12 +1,17 @@
 {% extends 'base.html' %}
 
 {% block container %}
-    <h1>Home</h1>
 
     {% if user.is_authenticated %}
 
         {% include 'url_trimmer/add_url.html' %}
+        <hr>
+        <h2>My links</h2>
         {% include 'url_trimmer/links_list.html' %}
+
+        {% else %}
+
+        <button type="button"><a href="{% url 'users:login' %}">Login</a></button>
 
     {% endif %}
 {% endblock %}
