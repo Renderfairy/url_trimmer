@@ -1,3 +1,8 @@
+<ul>
 {% for link in links %}
-        <a href="{{ link.url }}">{{ link.alias }}</a>
+        <li><a href="{{ link.url }}">{{ link.url }}</a></li>
+    <button>Delete</button>
+        <li><a href="{{ link.url }}">{{ link.alias }}</a>
+        </li><button>Delete</button>
 {% endfor %}
+</ul>
