@@ -6,6 +6,9 @@ from django.core.exceptions import ValidationError
 
 
 class RegistrationForm(forms.ModelForm):
+    """
+    Form based on :model: `users.CustomUser`
+    """
     password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
     password = forms.CharField(widget=forms.PasswordInput, validators=[validate_password])
     email = forms.CharField(widget=forms.EmailInput(attrs={
@@ -17,6 +20,8 @@ class RegistrationForm(forms.ModelForm):
         fields = ('username', 'email', 'password')
 
     def clean_password2(self):
+        """Cleans and validates form password data.
+        """
         password = self.cleaned_data.get('password')
         password2 = self.cleaned_data.get('password2')
 
@@ -26,6 +31,8 @@ class RegistrationForm(forms.ModelForm):
         return password2
 
     def save(self, commit=True):
+        """ Saves user instance to database.
+        """
         user = super().save(commit=False)
         user.set_password(self.cleaned_data.get('password'))
         if commit:
@@ -40,7 +47,8 @@ class RegistrationForm(forms.ModelForm):
 
 
 class LoginForm(AuthenticationForm):
-
+    """Authenticates user.
+    """
     password = forms.CharField(widget=forms.PasswordInput)
 
     class Meta:
