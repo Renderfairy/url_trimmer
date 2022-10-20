@@ -1,5 +1,5 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 
 
@@ -26,4 +26,4 @@ def home_view(request):
 
         return render(request, 'home/home.html', context)
 
-    return render(request, 'home/home.html')
+    return redirect(reverse_lazy('users:login'))
