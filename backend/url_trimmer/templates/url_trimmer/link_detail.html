@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block container %}
+
+    <div>
+    <div>
+        <h1>Your link</h1>
+        <p><a href="{{ link.url }}">{{ link.url }}</a></p>
+    </div>
+    <div>
+        <h1>Shorter</h1>
+        <p><a href="{{ link.url }}">{{ link.alias }}</a></p>
+    </div>
+</div>
+
+{% endblock %}

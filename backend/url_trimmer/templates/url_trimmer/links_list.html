@@ -1,6 +1,6 @@
 <ul>
 {% for link in links %}
-        <li><a href="{{ link.url }}">{{ link.url }}</a></li>
+        <li><a href="{% url 'url_trimmer:link_detail' link.id %}">{{ link.url }}</a></li>
     <button>Delete</button>
         <li><a href="{{ link.url }}">{{ link.alias }}</a>
         </li><button>Delete</button>
