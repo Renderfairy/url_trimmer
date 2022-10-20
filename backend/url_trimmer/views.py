@@ -1,18 +1,8 @@
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
-from django.urls import reverse_lazy
+from django.http import HttpResponseRedirect, HttpResponseForbidden
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy, reverse
+from django.views.generic import FormView
+from django.views.generic.detail import SingleObjectMixin
 
 from . import forms, models
 
-
-def add_new_url(request):
-    form = forms.AddUrl(request.POST or None)
-    if request.method == 'POST':
-        if form.is_valid():
-            url = form.save(commit=False)
-            url.user = request.user
-            url.alias = models.SaveURL.objects.all().count() + 1
-            url.save()
-            return HttpResponseRedirect(reverse_lazy('home:home'))
-
-    return render(request, 'url_trimmer/add_url.html', {'form': form})
