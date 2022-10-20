@@ -14,3 +14,7 @@ def link_detail_view(request, link_id):
 def link_redirect(request, alias):
     link = get_object_or_404(models.SaveURL, alias=alias)
     return redirect(f'{link.url}')
+
+
+def error_404(request, exception, template_name='url_trimmer/error_404.html'):
+    return render(request, template_name)
