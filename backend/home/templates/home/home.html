@@ -2,4 +2,11 @@
 
 {% block container %}
     <h1>Home</h1>
+
+    {% if user.is_authenticated %}
+
+        {% include 'url_trimmer/add_url.html' %}
+        {% include 'url_trimmer/links_list.html' %}
+
+    {% endif %}
 {% endblock %}
