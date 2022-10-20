@@ -8,12 +8,26 @@ from url_trimmer import forms, models
 
 
 def home_view(request):
+    """
+        Display form :form: `url_trimmer.AddURL` and list of instances :model: `url_trimmer.SaveURL`.
+
+        **Context**
+        ``form``
+            An instance of :form: `url_trimmer.AddURL`
+
+        ``links``
+            An instance of :model: `url_trimmer.SaveURL`.
+
+        **Template:**
+        Includes :template: `url_trimmer/add_url.html` and :template: `url_trimmer/links_list.html`
+        :template:`home/home.html`
+
+        """
     if request.user.is_authenticated:
         form = forms.AddUrl(request.POST or None)
         links = models.SaveURL.objects.filter(user=request.user)
         context = {
             'form': form,
-            'path': request.path,
             'links': links,
         }
 
