@@ -2,7 +2,7 @@
 {% for link in links %}
         <li><a href="{% url 'url_trimmer:link_detail' link.id %}">{{ link.url }}</a></li>
         <li><a href="{% url 'url_trimmer:link_redirect' link.alias %}">{{ request.scheme }}://{{ request.META.HTTP_HOST }}{{ request.get_full_path}}{{ link.alias }}</a>
-        </li><button>Delete</button>
+        </li><button type="submit"><a href="{% url 'url_trimmer:link_delete' link.alias %}">Delete</a></button>
     {% empty %}
     <h2>Sorry, you don't have any links yet</h2>
 {% endfor %}
