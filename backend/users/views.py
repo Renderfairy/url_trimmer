@@ -7,6 +7,19 @@ from . import forms
 
 
 def login_user_view(request):
+    """
+        Displays authentication :form:`users.LoginForm`.
+
+        **Context**
+
+        ``form``
+            An instance of :model:`users.LoginForm`.
+
+        **Template:**
+
+        :template: `users/login.html`
+
+    """
     if request.method == 'POST':
         form = forms.LoginForm(request, request.POST)
 
@@ -26,11 +39,27 @@ def login_user_view(request):
 
 
 def logout_user(request):
+    """
+        Redirects logged out user to login page.
+    """
     logout(request)
     return redirect(reverse_lazy('users:login'))
 
 
 def registration_view(request):
+    """
+            Displays registration :form:`users.RegistrationForm`.
+
+            **Context**
+
+            ``form``
+                An instance of :model:`users.RegistrationForm`.
+
+            **Template:**
+
+            :template: `users/register.html`
+
+        """
     form = forms.RegistrationForm(request.POST or None)
     if request.method == 'POST':
         if form.is_valid():
