@@ -30,3 +30,4 @@ def test_add_new_url(client, user):
     })
 
     assert len(SaveURL.objects.all()) == 1
+    assert SaveURL.objects.get(user=user)
