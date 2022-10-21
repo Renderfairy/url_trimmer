@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.utils.crypto import get_random_string
 
 
 class SaveURL(models.Model):
@@ -13,6 +14,11 @@ class SaveURL(models.Model):
 
     class Meta:
         ordering = ('-created_at',)
+
+    def save(self, *args, **kwargs):
+        if not self.alias:
+            self.alias = get_random_string(length=10)
+            super().save(*args, **kwargs)
 
     def __str__(self):
         return str(self.url)
