@@ -29,9 +29,19 @@ python manage.py migrate
 ```cmd
 python manage.py runserver
 ```
+To load some data into db run:
+```cmd
+python manage.py loaddata fixtures/base_data.json
+```
+All non-admin users have the same password: meaningfullpassword
+
+Usernames:
+- Debbie
+- Richard
+
 7. Start using.
 
-### Test
+### Tests
 The app has about 80% coverage in tests
 
 To run:
