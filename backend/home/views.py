@@ -35,7 +35,6 @@ def home_view(request):
             if form.is_valid():
                 url = form.save(commit=False)
                 url.user = request.user
-                url.alias = get_random_string(length=10)
                 url.save()
                 return HttpResponseRedirect(reverse_lazy('home:home'))
 
