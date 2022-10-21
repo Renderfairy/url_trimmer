@@ -26,7 +26,7 @@ def test_add_new_url(client, user):
     client.force_login(user)
     url = reverse('home:home')
     client.post(url, data={
-        'url': 'jetbrains.com/objc/',
+        'url': 'jetbrains.com/objc/'
     })
 
     assert len(SaveURL.objects.all()) == 1
