@@ -26,6 +26,7 @@ urlpatterns = [
     path("", include("home.urls")),
     path("", include("users.urls")),
     path("", include("url_trimmer.urls")),
+    path("api-auth/", include("rest_framework.urls")),
 
 ]
 
