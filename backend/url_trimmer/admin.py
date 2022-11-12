@@ -2,4 +2,4 @@ from django.contrib import admin
 
 from . import models
 
-admin.site.register(models.SaveURL)
+admin.site.register(models.URL)

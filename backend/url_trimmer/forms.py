@@ -6,6 +6,5 @@ class AddUrl(forms.ModelForm):
     """Saves url instance to databease.
     """
     class Meta:
-        model = models.SaveURL
+        model = models.URL
         fields = ('url',)
-        exclude = ('alias',)

@@ -1,7 +1,6 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.utils.crypto import get_random_string
 
 
 from url_trimmer import forms, models
@@ -25,7 +24,7 @@ def home_view(request):
         """
     if request.user.is_authenticated:
         form = forms.AddUrl(request.POST or None)
-        links = models.SaveURL.objects.filter(user=request.user)
+        links = models.URL.objects.filter(user=request.user)
         context = {
             'form': form,
             'links': links,
