@@ -1,9 +1,11 @@
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
+from rest_framework import viewsets, authentication, permissions
+from rest_framework.response import Response
 
-from . import forms
+from . import forms, serialzers
 
 
 def login_user_view(request):
@@ -71,3 +73,11 @@ def registration_view(request):
             return HttpResponseRedirect(reverse_lazy('home:home'))
 
     return render(request, 'users/register.html', {'form': form})
+
+
+class UsersList(viewsets.ModelViewSet):
+    queryset = get_user_model().objects.all()
+    serializer_class = serialzers.UserSerializer
+    permission_classes = [permissions.IsAdminUser]
+
+
