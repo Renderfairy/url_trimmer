@@ -64,6 +64,7 @@ def error_404(request, exception, template_name='url_trimmer/error_404.html'):
 class URLViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.URLSerializer
     permission_classes = [permissions.IsAuthenticated]
+    lookup_field = 'alias'
 
     def get_queryset(self):
         user = self.request.user
