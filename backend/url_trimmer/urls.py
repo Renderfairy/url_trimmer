@@ -1,13 +1,10 @@
 from django.urls import path
+from rest_framework.routers import SimpleRouter
 
 from . import views
 
 app_name = 'url_trimmer'
+router = SimpleRouter()
+router.register('links', views.URLViewSet, basename='links')
 
-urlpatterns = [
-    path('my-links/<int:link_id>/', views.link_detail_view, name='link_detail'),
-    path('<str:alias>/', views.link_redirect, name='link_redirect'),
-    path('my-links/<str:alias>/', views.link_delete, name='link_delete'),
-    path('links-list', views.ListURLView.as_view(), name='urls_list'),
-    path('add-url', views.AddURL.as_view(), name='add_url')
-]
+urlpatterns = router.urls

@@ -1,7 +1,7 @@
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
-from rest_framework import generics, permissions, views
+from rest_framework import generics, permissions, views, viewsets
 from rest_framework.response import Response
 
 from . import models, serializers
@@ -61,8 +61,7 @@ def error_404(request, exception, template_name='url_trimmer/error_404.html'):
     return render(request, template_name)
 
 
-class ListURLView(generics.ListAPIView):
-    queryset = models.URL.objects.all()
+class URLViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.URLSerializer
     permission_classes = [permissions.IsAuthenticated]
 
@@ -71,15 +70,6 @@ class ListURLView(generics.ListAPIView):
         return models.URL.objects.filter(user=user)
 
     def list(self, request, *args, **kwargs):
-        quyeryset = self.get_queryset()
-        serializer = serializers.URLSerializer(quyeryset, many=True)
+        queryset = self.get_queryset()
+        serializer = serializers.URLSerializer(queryset, many=True)
         return Response(serializer.data)
-
-
-class AddURL(generics.CreateAPIView):
-    serializer_class = serializers.URLSerializer
-
-    def perform_create(self, serializer):
-        if serializer.is_valid():
-            serializer.save(user=self.request.user)
-
