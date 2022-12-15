@@ -51,8 +51,11 @@ class HomeView(LoginRequiredMixin, FormMixin, ListView):
     login_url = 'users:login'
     success_url = reverse_lazy('home:home_2')
 
+    def get(self, request, *args, **kwargs):
+
+        return super().get(request, *args, **kwargs)
+
     def post(self, request, *args, **kwargs):
-        self.queryset = self.get_queryset()
         form = self.get_form()
         if form.is_valid():
             url = form.save(commit=False)
@@ -62,6 +65,11 @@ class HomeView(LoginRequiredMixin, FormMixin, ListView):
 
     def form_valid(self, form):
         return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['links'] = self.get_queryset()
+        return context
 
     def get_queryset(self):
         return models.URL.objects.filter(user=self.request.user)
