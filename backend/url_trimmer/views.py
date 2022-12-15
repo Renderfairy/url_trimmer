@@ -1,6 +1,7 @@
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
+from django.views.generic import DetailView
 
 from . import models
 
@@ -57,3 +58,9 @@ def link_delete(request, alias):
 
 def error_404(request, exception, template_name='url_trimmer/error_404.html'):
     return render(request, template_name)
+
+
+class LinkDetailView(DetailView):
+    model = models.URL
+    context_object_name = 'link'
+    template_name = 'url_trimmer/link_detail.html'
