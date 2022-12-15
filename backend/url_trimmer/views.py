@@ -1,29 +1,10 @@
-
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import DetailView
+from django.views.generic import DetailView, DeleteView
 
-from . import models
-
-
-def link_detail_view(request, link_id):
-    """
-        Display an individual :model:`url_trimmer.SaveURL`.
-
-        **Context**
-
-        ``link``
-            An instance of :model:`url_trimmer.SaveURL`.
-
-        **Template:**
-
-        :template: `url_trimmer/link_detail.html`
-
-    """
-    link = get_object_or_404(models.URL, pk=link_id)
-    context = {'link': link}
-
-    return render(request, 'url_trimmer/link_detail.html', context)
+from .models import URL
 
 
 def link_redirect(request, alias):
@@ -36,7 +17,7 @@ def link_redirect(request, alias):
             An instance of :model:`url_trimmer.SaveURL`.
 
     """
-    link = get_object_or_404(models.URL, alias=alias)
+    link = get_object_or_404(URL, alias=alias)
     return redirect(f'{link.url}')
 
 
@@ -50,7 +31,7 @@ def link_delete(request, alias):
            An instance of :model:`url_trimmer.SaveURL`.
 
    """
-    link = get_object_or_404(models.URL, alias=alias)
+    link = get_object_or_404(URL, alias=alias)
     link.delete()
 
     return redirect(reverse_lazy('home:home'))
@@ -60,7 +41,24 @@ def error_404(request, exception, template_name='url_trimmer/error_404.html'):
     return render(request, template_name)
 
 
-class LinkDetailView(DetailView):
-    model = models.URL
+class LinkDetailView(LoginRequiredMixin, DetailView):
+    model = URL
     context_object_name = 'link'
     template_name = 'url_trimmer/link_detail.html'
+    login_url = 'users:login'
+
+
+class LinkDeleteView(LoginRequiredMixin, DeleteView):
+    model = URL
+    pk_url_kwarg = 'alias'
+    context_object_name = 'link'
+    success_url = reverse_lazy('home:home')
+    login_url = 'users:login'
+
+    def get_object(self, queryset=None):
+        al = self.kwargs.get('alias')
+        obj = URL.objects.get(alias=al)
+        if not obj.user == self.request.user:
+            raise Http404
+        return obj
+
