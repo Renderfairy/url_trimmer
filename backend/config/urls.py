@@ -29,7 +29,7 @@ urlpatterns = [
 
 ]
 
-handler404 = views.error_404
+handler404 = views.links_404_view
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

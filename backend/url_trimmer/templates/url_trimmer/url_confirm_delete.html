@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block container %}
+    <h1>Confirm</h1>
+     <form action="" method="POST">
+     <p>Are you sure you want to delete this url {{ link.url }}</p>
+    {% csrf_token %}
+    {% if form.errors %}
+        {% for error in form.errors %}
+            <div>
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+        {{ form }}
+
+        <button type="submit">Submit</button>
+    </form>
+
+{% endblock %}
